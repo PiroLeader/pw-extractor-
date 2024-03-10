@@ -1,60 +1,25 @@
-import pyrogram
-from pyrogram import Client, filters
-from pyromod import listen
-from pyrogram.types import Message
-from pyrogram.types.messages_and_media import message
-import time
-import urllib
-import urllib.parse
-import tgcrypto
-from pyrogram.types import User
-import time
-import os
-import threading
-import requests
-import json
-import re
-#from Crypto.Cipher import AES
-#from Crypto.Util.Padding import unpad
-#from base64 import b64encode, b64decode
-
-bot_token = os.environ.get("TOKEN", "6855105570:AAFcqA756t3CZzMwzwNM08fTeUFj9P8vBRI") 
-api_hash = os.environ.get("HASH", "2034b81303744d1dd2c7ffc02e21cfe2") 
-api_id = os.environ.get("ID", "18429621")
-
-bot = Client("mybot",api_id=api_id,api_hash=api_hash,bot_token=bot_token)
-
-
-
-@bot.on_message(filters.command(["start"]))
-async def account_login(bot: Client, m: Message):
- editable = await m.reply_text("**I am /pw links extract bot**")
-
-@bot.on_message(filters.command(["pw"]))
-async def account_login(bot: Client, m: Message):
-    editable = await m.reply_text(
-        "Send **Auth code** in this manner otherwise bot will not respond.\n\nSend like this:-  **AUTH CODE**"
-    )  
-    input1: Message = await bot.listen(editable.chat.id)
-    raw_text1=input1.text
-    headers = {
-            'Host': 'api.penpencil.xyz',
-            
-
-Code
-Issues
-Pull requests
-Commit
-Update main.py
- main
-@PiroLeader
-PiroLeader committed 6 hours ago
-1 parent 262aac0
-commit d73f6c1
-Showing 1 changed file with 103 additions and 72 deletions.
-  175 changes: 103 additions & 72 deletions175  
-main.py
-@@ -1,31 +1,34 @@
+#  MIT License
+#
+#  Copyright (c) 2019-present Dan <https://github.com/delivrance>
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#  SOFTWARE
+#  Code edited By Cryptostark
 import urllib
 import urllib.parse
 import requests
@@ -67,8 +32,6 @@ from pyrogram.types import Message
 import tgcrypto
 import pyrogram
 from pyrogram import Client, filters
-from pyromod import listen
-from pyrogram.types import Message
 from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import FloodWait
@@ -77,47 +40,26 @@ from pyrogram.types import User, Message
 from p_bar import progress_bar
 from subprocess import getstatusoutput
 import logging
-import urllib
-import urllib.parse
-import tgcrypto
-from pyrogram.types import User
-import time
 import os
 import sys
-import threading
-import requests
-import json
 import re
 from pyrogram import Client as bot
 import cloudscraper
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 from base64 import b64encode, b64decode
-#from Crypto.Cipher import AES
-#from Crypto.Util.Padding import unpad
-#from base64 import b64encode, b64decode
-
-bot_token = os.environ.get("TOKEN", "6855105570:AAFcqA756t3CZzMwzwNM08fTeUFj9P8vBRI") 
-api_hash = os.environ.get("HASH", "2034b81303744d1dd2c7ffc02e21cfe2") 
-api_id = os.environ.get("ID", "18429621")
-
-bot = Client("mybot",api_id=api_id,api_hash=api_hash,bot_token=bot_token)
-
-
-
-@bot.on_message(filters.command(["start"]))
-async def account_login(bot: Client, m: Message):
- editable = await m.reply_text("**I am /pw links extract bot**")
 
 @bot.on_message(filters.command(["pw"]))
 async def account_login(bot: Client, m: Message):
-@@ -35,41 +38,19 @@ async def account_login(bot: Client, m: Message):
+    editable = await m.reply_text(
+        "Send **Auth code** in this manner otherwise bot will not respond.\n\nSend like this:-  **AUTH CODE**"
+    )  
     input1: Message = await bot.listen(editable.chat.id)
     raw_text1=input1.text
     headers = {
 
             'Host': 'api.penpencil.xyz',
-     
+
             'authorization': f"Bearer {raw_text1}",
 
             'client-id': '5eb393ee95fab7468a79d189',
@@ -137,6 +79,19 @@ async def account_login(bot: Client, m: Message):
         # 'content-length': '89',
 
         # 'accept-encoding': 'gzip' ,
+    }
+
+    params = {
+       'mode': '1',
+       'filter': 'false',
+       'exam': '',
+       'amount': '',
+       'organisationId': '5eb393ee95fab7468a79d189',
+       'classes': '',
+       'limit': '20',
+       'page': '1',
+       'programId': '',
+       'ut': '1652675230446', 
     }
     await editable.edit("**You have these Batches :-\n\nBatch ID : Batch Name**")
     response = requests.get('https://api.penpencil.xyz/v3/batches/my-batches', params=params, headers=headers).json()["data"]
@@ -169,7 +124,23 @@ async def account_login(bot: Client, m: Message):
     editable2= await m.reply_text("**Enter this to download full batch :-**\n```{vj}```")
     input4 = message = await bot.listen(editable.chat.id)
     raw_text4 = input4.text
-   
+    await m.reply_text("**Enter resolution**")
+    input5: Message = await bot.listen(editable.chat.id)
+    raw_text5 = input5.text
+    
+    #await m.reply_text("**Enter Title**")
+    #input0: Message = await bot.listen(editable.chat.id)
+    #raw_text0 = input0.text
+
+    editable4= await m.reply_text("Now send the **Thumb url** Eg : ```https://telegra.ph/file/d9e24878bd4aba05049a1.jpg```\n\nor Send **no**")
+    input6 = message = await bot.listen(editable.chat.id)
+    raw_text6 = input6.text
+    thumb = input6.text
+    if thumb.startswith("http://") or thumb.startswith("https://"):
+        getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
+        thumb = "thumb.jpg"
+    else:
+        thumb == "no"
     try:
         xv = raw_text4.split('&')
 
@@ -186,23 +157,11 @@ async def account_login(bot: Client, m: Message):
             
             params4 = {'page': '4','tag': '','contentType': 'exercises-notes-videos','ut': ''}
             response6 = requests.get(f'https://api.penpencil.xyz/v2/batches/{raw_text3}/subject/{t}/contents', params=params4, headers=headers).json()["data"]
-            
-            params5 = {'page': '5','tag': '','contentType': 'exercises-notes-videos','ut': ''}
-            response7 = requests.get(f'https://api.penpencil.xyz/v2/batches/{raw_text3}/subject/{t}/contents', params=params4, headers=headers).json()["data"]
-            
-            params6 = {'page': '6','tag': '','contentType': 'exercises-notes-videos','ut': ''}
-            response8 = requests.get(f'https://api.penpencil.xyz/v2/batches/{raw_text3}/subject/{t}/contents', params=params4, headers=headers).json()["data"]
-            
-            params7 = {'page': '7','tag': '','contentType': 'exercises-notes-videos','ut': ''}
-            response9 = requests.get(f'https://api.penpencil.xyz/v2/batches/{raw_text3}/subject/{t}/contents', params=params4, headers=headers).json()["data"]
-            
-            params8 = {'page': '8','tag': '','contentType': 'exercises-notes-videos','ut': ''}
-            response10 = requests.get(f'https://api.penpencil.xyz/v2/batches/{raw_text3}/subject/{t}/contents', params=params4, headers=headers).json()["data"]
             #await m.reply_text(response3)
             try:
                 for data in response3:
                     class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
+                    class_url=data["url"].replace("d1d34p8vz63oiq", "d3nzo6itypaz07").replace("mpd", "m3u8").strip()
                 #cc=f"```{data['topic']}```:```{data['url']}\n```"
                     cc = f"{data['topic']}:{data['url']}"
                     with open(f"{batch}.txt", 'a') as f:
@@ -215,7 +174,7 @@ async def account_login(bot: Client, m: Message):
             try:
                 for data in response4:
                     class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
+                    class_url=data["url"].replace("d1d34p8vz63oiq", "d3nzo6itypaz07").replace("mpd", "m3u8").strip()
                 #cc=f"```{data['topic']}```:```{data['url']}\n```"
                     cc = f"{data['topic']}:{data['url']}"
                     with open(f"{batch}.txt", 'a') as f:
@@ -228,7 +187,7 @@ async def account_login(bot: Client, m: Message):
             try:
                 for data in response5:
                     class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
+                    class_url=data["url"].replace("d1d34p8vz63oiq", "d3nzo6itypaz07").replace("mpd", "m3u8").strip()
                 #cc=f"```{data['topic']}```:```{data['url']}\n```"
                     cc = f"{data['topic']}:{data['url']}"
                     with open(f"{batch}.txt", 'a') as f:
@@ -241,58 +200,7 @@ async def account_login(bot: Client, m: Message):
             try:
                 for data in response6:
                     class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
-                #cc=f"```{data['topic']}```:```{data['url']}\n```"
-                    cc = f"{data['topic']}:{data['url']}"
-                    with open(f"{batch}.txt", 'a') as f:
-                        f.write(f"{class_title}:{class_url}\n")
-                #await m.reply_text(cc)
-                #await m.reply_document(f"{batch}.txt")
-            except Exception as e:
-               await m.reply_text(str(e))
-            try:
-                for data in response7:
-                    class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
-                #cc=f"```{data['topic']}```:```{data['url']}\n```"
-                    cc = f"{data['topic']}:{data['url']}"
-                    with open(f"{batch}.txt", 'a') as f:
-                        f.write(f"{class_title}:{class_url}\n")
-                #await m.reply_text(cc)
-                #await m.reply_document(f"{batch}.txt")
-            except Exception as e:
-               await m.reply_text(str(e))
-            #await m.reply_document(f"{batch}.txt")
-            try:
-                for data in response8:
-                    class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
-                #cc=f"```{data['topic']}```:```{data['url']}\n```"
-                    cc = f"{data['topic']}:{data['url']}"
-                    with open(f"{batch}.txt", 'a') as f:
-                        f.write(f"{class_title}:{class_url}\n")
-                #await m.reply_text(cc)
-                #await m.reply_document(f"{batch}.txt")
-            except Exception as e:
-               await m.reply_text(str(e))
-            #await m.reply_document(f"{batch}.txt")
-            try:
-                for data in response9:
-                    class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
-                #cc=f"```{data['topic']}```:```{data['url']}\n```"
-                    cc = f"{data['topic']}:{data['url']}"
-                    with open(f"{batch}.txt", 'a') as f:
-                     f.write(f"{class_title}:{class_url}\n")
-                #await m.reply_text(cc)
-                #await m.reply_document(f"{batch}.txt")
-            except Exception as e:
-               await m.reply_text(str(e))
-            #await m.reply_document(f"{batch}.txt")
-            try:
-                for data in response10:
-                    class_title=(data["topic"])
-                    class_url=data["url"].replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("mpd", "m3u8").strip()
+                    class_url=data["url"].replace("d1d34p8vz63oiq", "d3nzo6itypaz07").replace("mpd", "m3u8").strip()
                 #cc=f"```{data['topic']}```:```{data['url']}\n```"
                     cc = f"{data['topic']}:{data['url']}"
                     with open(f"{batch}.txt", 'a') as f:
@@ -304,6 +212,3 @@ async def account_login(bot: Client, m: Message):
             await m.reply_document(f"{batch}.txt")
     except Exception as e:
         await m.reply_text(str(e))
-
-# infinty polling
-bot.run()
