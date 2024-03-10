@@ -1,0 +1,6 @@
+pyrogram==1.4.16
+tgcrypto
+cloudscraper
+requests
+urllib3==1.26.15
+pyromod==1.5
