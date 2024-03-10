@@ -83,7 +83,7 @@ async def account_login(bot: Client, m: Message):
         await m.reply_text(aa)
     #time.sleep(2)
     editable1 = await m.reply_text("**Now send the Batch ID to Download**")
-input3 = await bot.listen(editable.chat.id)  # Assuming 'editable' is defined elsewhere
+input3 = await bot.listen(chat.id)  # Assuming 'editable' is defined elsewhere
 raw_text3 = input3.text
 
 try:
