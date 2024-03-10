@@ -53,12 +53,16 @@ async def account_login(bot: Client, m: Message):
        'page': '1',
     }
     await m.reply_text("**You have these Batches :-\n\nBatch ID : Batch Name**")
-    aa=''
-    response = requests.get('https://api.penpencil.co/v3/batches/my-batches', params=params, headers=headers).json()["data"]
-    for data in response:
-        batch_name = data['name']
-        batch_id = data['_id']
-        aa = aa + f'**{batch_name}**  :  ```{batch_id}```\n\n'
+
+response = requests.get('https://api.penpencil.co/v3/batches/my-batches', params=params, headers=headers).json()["data"]
+
+for data in response:
+    batch_name = data['name']
+    batch_id = data['_id'] 
+
+    # Directly format and send the message (more efficient)
+    await m.reply_text(f'**{batch_name}**  :  `{batch_id}`\n\n') 
+
     await m.reply_text(aa)
     editable1= await m.reply_text("**Now send the Batch ID to Download**")
     input3 = message = await bot.listen(editable.chat.id)
