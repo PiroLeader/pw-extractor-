@@ -38,19 +38,105 @@ async def account_login(bot: Client, m: Message):
     input1: Message = await bot.listen(editable.chat.id)
     raw_text1=input1.text
     headers = {
-            'Host': 'api.penpencil.co',
+            'Host': 'api.penpencil.xyz',
+            
+
+Code
+Issues
+Pull requests
+Commit
+Update main.py
+ main
+@PiroLeader
+PiroLeader committed 6 hours ago
+1 parent 262aac0
+commit d73f6c1
+Showing 1 changed file with 103 additions and 72 deletions.
+  175 changes: 103 additions & 72 deletions175  
+main.py
+@@ -1,31 +1,34 @@
+import urllib
+import urllib.parse
+import requests
+import json
+import subprocess
+from pyrogram.types.messages_and_media import message
+import helper
+from pyromod import listen
+from pyrogram.types import Message
+import tgcrypto
+import pyrogram
+from pyrogram import Client, filters
+from pyromod import listen
+from pyrogram.types import Message
+from pyrogram.types.messages_and_media import message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.errors import FloodWait
+import time
+from pyrogram.types import User, Message
+from p_bar import progress_bar
+from subprocess import getstatusoutput
+import logging
+import urllib
+import urllib.parse
+import tgcrypto
+from pyrogram.types import User
+import time
+import os
+import sys
+import threading
+import requests
+import json
+import re
+from pyrogram import Client as bot
+import cloudscraper
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+from base64 import b64encode, b64decode
+#from Crypto.Cipher import AES
+#from Crypto.Util.Padding import unpad
+#from base64 import b64encode, b64decode
+
+bot_token = os.environ.get("TOKEN", "6855105570:AAFcqA756t3CZzMwzwNM08fTeUFj9P8vBRI") 
+api_hash = os.environ.get("HASH", "2034b81303744d1dd2c7ffc02e21cfe2") 
+api_id = os.environ.get("ID", "18429621")
+
+bot = Client("mybot",api_id=api_id,api_hash=api_hash,bot_token=bot_token)
+
+
+
+@bot.on_message(filters.command(["start"]))
+async def account_login(bot: Client, m: Message):
+ editable = await m.reply_text("**I am /pw links extract bot**")
+
+@bot.on_message(filters.command(["pw"]))
+async def account_login(bot: Client, m: Message):
+@@ -35,41 +38,19 @@ async def account_login(bot: Client, m: Message):
+    input1: Message = await bot.listen(editable.chat.id)
+    raw_text1=input1.text
+    headers = {
+
+            'Host': 'api.penpencil.xyz',
+     
             'authorization': f"Bearer {raw_text1}",
+
             'client-id': '5eb393ee95fab7468a79d189',
-            'client-version': '1910',
-            'user-agent': 'Mozilla/5.0 (Linux; Android 12; M2101K6P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Mobile Safari/537.36',
-            'randomid': '72012511-256c-4e1c-b4c7-29d67136af37',
-            'client-type': 'WEB',
-            'content-type': 'application/json; charset=utf-8',
-    }
-    params = {
-       'mode': '1',
-       'amount': 'paid',
-       'page': '1',
+
+            'client-version': '12.84',
+
+            'user-agent': 'Android',
+
+            'randomid': 'e4307177362e86f1',
+
+            'client-type': 'MOBILE',
+
+            'device-meta': '{APP_VERSION:12.84,DEVICE_MAKE:Asus,DEVICE_MODEL:ASUS_X00TD,OS_VERSION:6,PACKAGE_NAME:xyz.penpencil.physicswalb}',
+
+            'content-type': 'application/json; charset=UTF-8',
+
+        # 'content-length': '89',
+
+        # 'accept-encoding': 'gzip' ,
     }
     await editable.edit("**You have these Batches :-\n\nBatch ID : Batch Name**")
     response = requests.get('https://api.penpencil.xyz/v3/batches/my-batches', params=params, headers=headers).json()["data"]
