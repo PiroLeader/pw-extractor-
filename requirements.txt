@@ -4,3 +4,5 @@ cloudscraper
 requests
 urllib3==1.26.15
 pyromod==1.5
+asynco
+requests
