@@ -95,6 +95,15 @@ async def account_login(bot: Client, m: Message):
         subject_id = data['_id']
         bb = bb  + f'**{subject_name}**  :  ```{subject_id}```\n\n'
     await m.reply_text(bb)
+    raw_text3 = input3.text
+    response2 = requests.get(f'https://api.penpencil.co/v3/batches/{raw_text3}/details', headers=headers).json()["data"]["subjects"]
+    await m.reply_text("Subject : Subject_Id")
+    bb= ''
+    for data in response2:
+        subject_name = data['subject']
+        subject_id = data['_id']
+        bb = bb  + f'**{subject_name}**  :  ```{subject_id}```\n\n'
+    await m.reply_text(bb)
     editable2= await m.reply_text("**Now send the subject ID to Download**")
     input4 = message = await bot.listen(editable.chat.id)
     raw_text4 = input4.text
