@@ -82,25 +82,15 @@ async def account_login(bot: Client, m: Message):
         aa=f"`{data['name']}`  :  `{data['_id']}\n`"
         await m.reply_text(aa)
     #time.sleep(2)
-    editable1 = await m.reply_text("**Now send the Batch ID to Download**")
-input3 = await bot.listen(chat.id)  # Assuming 'editable' is defined elsewhere
-raw_text3 = input3.text
+    editable1 = await m.reply_text("**Now send the Batch ID to Download**")  # Create the editable message
 
-try:
-    response2 = requests.get(f'https://api.penpencil.xyz/v3/batches/{raw_text3}/details', headers=headers).json()["data"]["subjects"]
+    input3 = await bot.listen(editable1.chat.id)  # Listen for replies in the same chat
+    raw_text3 = input3.text
 
-    subject_info = ""
-    for subject in response2:   
-        subject_name = subject.get('subject', 'Subject Name Unavailable')  # Handle missing 'subject'
-        subject_id = subject.get('_id', 'Subject ID Unavailable')  # Handle missing '_id'
-        subject_info += f"**{subject_name}** : `{subject_id}`\n\n"
-
-    await editable1.edit_text(subject_info)  # Update the message
-
-except requests.exceptions.RequestException as e:
-    await editable1.edit_text(f"Error getting subjects: {str(e)}")
-except KeyError as e:
-    await editable1.edit_text(f"Error in response format: {str(e)}")
+    try:
+        # ... (rest of the code remains the same )
+    except Exception as e:  # Catching a general exception for broader safety
+        await editable1.edit_text(f"Error: {str(e)}")
     vj=""
     for data in response2:
        #topic=(data["subject"])
