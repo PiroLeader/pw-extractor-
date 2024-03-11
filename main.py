@@ -82,14 +82,27 @@ async def account_login(bot: Client, m: Message):
         aa=f"`{data['name']}`  :  `{data['_id']}\n`"
         await m.reply_text(aa)
     #time.sleep(2)
-    editable1 = await m.reply_text("**Now send the Batch ID to Download**")  # Create the editable message
-
-    input3 = await bot.listen(editable1.chat.id)  # Listen for replies in the same chat
+    await m.reply_text("**You have these Batches :-\n\nBatch ID : Batch Name**")
+    aa=''
+    response = requests.get('https://api.penpencil.co/v3/batches/my-batches', params=params, headers=headers).json()["data"]
+    for data in response:
+        batch_name = data['name']
+        batch_id = data['_id']
+        aa = aa + f'**{batch_name}**  :  ```{batch_id}```\n\n'
+    await m.reply_text(aa)
+    editable1= await m.reply_text("**Now send the Batch ID to Download**")
+    input3 = message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
- try:
-        # ... (rest of the code remains the same )
-    except Exception as e:  # Catching a general exception for broader safety
-        await editable1.edit_text(f"Error: {str(e)}")
+    response2 = requests.get(f'https://api.penpencil.co/v3/batches/{raw_text3}/details', headers=headers).json()["data"]["subjects"]
+    await m.reply_text("Subject : Subject_Id")
+    bb= ''
+    for data in response2:
+        subject_name = data['subject']
+        subject_id = data['_id']
+        bb = bb  + f'**{subject_name}**  :  ```{subject_id}```\n\n'
+    await m.reply_text(bb)
+    editable2= await m.reply_text("**Now send the subject ID to Download**")
+    input4 = message = await bot.listen(editable.chat.id)
     vj=""
     for data in response2:
        #topic=(data["subject"])
