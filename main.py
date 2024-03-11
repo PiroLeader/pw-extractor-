@@ -86,8 +86,7 @@ async def account_login(bot: Client, m: Message):
 
     input3 = await bot.listen(editable1.chat.id)  # Listen for replies in the same chat
     raw_text3 = input3.text
-
-    try:
+ try:
         # ... (rest of the code remains the same )
     except Exception as e:  # Catching a general exception for broader safety
         await editable1.edit_text(f"Error: {str(e)}")
