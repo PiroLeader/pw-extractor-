@@ -64,16 +64,10 @@ async def account_login(bot: Client, m: Message):
 
     params = {
        'mode': '1',
-       'filter': 'false',
-       'exam': '',
-       'amount': '',
-       'organisationId': '5eb393ee95fab7468a79d189',
-       'classes': '',
-       'limit': '20',
+       'amount': 'paid',
        'page': '1',
-       'programId': '',
-       'ut': '1652675230446', 
     }
+       
     await editable.edit("**You have these Batches :-\n\nBatch ID : Batch Name**")
     response = requests.get('https://api.penpencil.xyz/v3/batches/my-batches', params=params, headers=headers).json()["data"]
     for data in response:
