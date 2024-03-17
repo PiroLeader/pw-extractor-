@@ -15,7 +15,7 @@ import os
 bot = Client(
     "bot",
     api_id="18429621",  
-    api_hash="6855105570",
+    api_hash="2034b81303744d1dd2c7ffc02e21cfe2",
     bot_token="6855105570:AAFcqA756t3CZzMwzwNM08fTeUFj9P8vBRI") 
 
 @bot.on_message(filters.command(["pw"]))
